@@ -1,0 +1,55 @@
+DECLARE queueCounter AS INTEGER = 1
+
+	INPUT PatientName 
+	INPUT Age 
+	INPUT ReasonForVisit
+	INPUT PatientType 
+
+WHEN CLINIC_QUEUE is clicked
+
+BEGIN CLINIC_QUEUE
+
+    IF PatientName is empty OR Age is empty OR PatientType has no selection THEN
+        DISPLAY "Please fill out all fields."
+        RETURN
+    ENDIF
+
+    DECLARE queueString AS STRING
+    SET queueString = "Q" + FORMAT(queueCounter, "000") // Pads number to 3 digits (001)
+
+    DECLARE priorityText AS STRING
+    DECLARE patientType AS STRING
+    SET patientType = PatientType.SelectedItem
+
+    SWITCH patientType
+        CASE "Emergency":
+            SET priorityText = "EMERGENCY"
+        CASE "Senior":
+            SET priorityText = "SENIOR PRIORITY"
+        CASE "Pregnant":
+            SET priorityText = "PRIORITY"
+        CASE "Regular":
+            SET priorityText = "REGULAR"
+        DEFAULT:
+            SET priorityText = "REGULAR"
+    END SWITCH
+
+    DISPLAY queueString, patientType, priorityText
+
+
+    SET queueCounter = queueCounter + 1
+END
+
+WHEN CLEAR is clicked
+
+BEGIN CLEAR
+    SET PatientName.Text = ""
+    SET Age.Text = ""
+    SET ReasonForVisit.SelectedIndex = -1
+    SET PatientType.SelectedIndex = -1
+    
+    // Clear any persistent output display labels if present
+    SET lblResultQueueNumber.Text = ""
+    SET lblResultPriority.Text = ""
+END
+

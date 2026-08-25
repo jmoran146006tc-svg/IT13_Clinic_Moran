@@ -16,7 +16,22 @@ namespace Clinic
 
         private void QueueButton_Click(object sender, EventArgs e)
         {
-            
+            // Checks age first if it's a number, puts it in a variable named 'age' if true
+            if (int.TryParse(txtPatientAge.Text, out int age))
+            {
+                if (age > 130 || age < 0)
+                {
+                    MessageBox.Show("Please ensure Patient Age is within reasonable range.",
+                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please ensure Patient Age is a whole number.",
+                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
 
 
@@ -28,6 +43,7 @@ namespace Clinic
                                 "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;   // Catches missing inputs and tells the user to complete all fields
             }
+
 
             string queueNumberStr = $"Q{queueCounter:D3}"; // Formats int 1 to string "Q001"
 
@@ -68,7 +84,7 @@ namespace Clinic
         {
             txtPatientName.Clear();
             txtPatientAge.Clear();
-            cmbPatientType.SelectedIndex = -1; 
+            cmbPatientType.SelectedIndex = -1;
             cmbReasonForVisit.SelectedIndex = -1;
             txtPatientName.Focus();
         }

@@ -15,7 +15,7 @@ BEGIN CLINIC_QUEUE
     ENDIF
 
     DECLARE queueString AS STRING
-    SET queueString = "Q" + FORMAT(queueCounter, "000") // Pads number to 3 digits (001)
+    SET queueString = "Q" + FORMAT(queueCounter, "000")
 
     DECLARE priorityText AS STRING
     DECLARE patientType AS STRING
@@ -47,8 +47,6 @@ BEGIN CLEAR
     SET Age.Text = ""
     SET ReasonForVisit.SelectedIndex = -1
     SET PatientType.SelectedIndex = -1
-    
-    // Clear any persistent output display labels if present
     SET lblResultQueueNumber.Text = ""
     SET lblResultPriority.Text = ""
 END

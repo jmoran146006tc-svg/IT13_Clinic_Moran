@@ -70,11 +70,9 @@ namespace Clinic
             }
 
             data.Rows.Add(
-               queueCounter,
-               txtPatientName.Text,
-               txtPatientAge.Text,
-               selectedType,
                queueNumberStr,
+               txtPatientName.Text,
+               selectedType,
                priorityText
            ); // Fills the table with the necessary data
             queueCounter++;
@@ -87,20 +85,21 @@ namespace Clinic
             cmbPatientType.SelectedIndex = -1;
             cmbReasonForVisit.SelectedIndex = -1;
             txtPatientName.Focus();
+            data.Clear();
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            data.Columns.Add("No", typeof(int));
+            data.Columns.Add("Queue", typeof(string));
             data.Columns.Add("Patient", typeof(string));
-            data.Columns.Add("Age", typeof(string));
             data.Columns.Add("Patient Type", typeof(string));
-            data.Columns.Add("Expected Queue", typeof(string));
-            data.Columns.Add("Expected Priority", typeof(string));
+            data.Columns.Add("Priority", typeof(string));
 
             dataGridView1.DataSource = data;
             // Populates the table with the necessary columns
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; 
+            // Resizes columns to prevent text cut off
         }
 
     }
